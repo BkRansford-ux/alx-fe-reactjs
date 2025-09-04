@@ -10,9 +10,9 @@ function App() {
       <MainContent />
       <Footer />
       <UserProfile
-	name="Ransford"
+	name="Alice"
 	age="25"
-	bio="Loves hiking, designing and games"
+	bio="Loves hiking and photography"
       />
     </div>
   );
