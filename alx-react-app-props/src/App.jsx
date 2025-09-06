@@ -1,4 +1,5 @@
-import UserProfile from './UserProfile';
+cat > src/App.jsx <<'JS'
+import ProfilePage from './ProfilePage';
 import UserContext from './UserContext';
 
 function App() {
@@ -6,9 +7,10 @@ function App() {
 
   return (
     <UserContext.Provider value={userData}>
-      <UserProfile />
+      <ProfilePage />
     </UserContext.Provider>
   );
 }
 
 export default App;
+JS
