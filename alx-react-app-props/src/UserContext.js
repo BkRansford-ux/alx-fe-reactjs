@@ -1,7 +1,6 @@
-cat > src/UserContext.js <<'JS'
+// src/UserContext.js
 import { createContext } from "react";
 
 const UserContext = createContext();
 
 export default UserContext;
-JS

@@ -1,4 +1,4 @@
-cat > src/UserInfo.jsx <<'JS'
+// src/UserInfo.jsx
 import UserDetails from './UserDetails';
 
 function UserInfo() {
@@ -6,4 +6,3 @@ function UserInfo() {
 }
 
 export default UserInfo;
-JS

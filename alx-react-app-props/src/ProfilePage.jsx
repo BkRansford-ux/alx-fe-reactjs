@@ -1,4 +1,4 @@
-cat > src/ProfilePage.jsx <<'JS'
+// src/ProfilePage.jsx
 import UserInfo from './UserInfo';
 
 function ProfilePage() {
@@ -6,4 +6,3 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
-JS
