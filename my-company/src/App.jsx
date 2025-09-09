@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";   // ✅ correct path
+import Footer from "./components/Footer";   // ✅ correct path
 import Home from "./Home";
 import About from "./About";
 import Services from "./Services";
 import Contact from "./Contact";
-import Footer from "./Footer";
 
 function App() {
   return (
