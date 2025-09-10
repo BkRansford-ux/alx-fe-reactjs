@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
+import { useParams } from 'react-router-dom';
 
 function App() {
   return (
@@ -19,7 +20,6 @@ function App() {
   );
 }
 
-// ✅ Wrapper to grab recipeId from URL
 function RecipeDetailsWrapper() {
   const { id } = useParams();
   return <RecipeDetails recipeId={id} />;
