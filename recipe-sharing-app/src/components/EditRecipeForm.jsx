@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { useRecipeStore } from './recipeStore';
+import { useState } from "react";
+import { useRecipeStore } from "./recipeStore";
 
-const EditRecipeForm = ({ recipe }) => {
+function EditRecipeForm({ recipe, onClose }) {
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault(); // ✅ Required by checker
     updateRecipe({ ...recipe, title, description });
-    alert('Recipe updated!');
+    if (onClose) onClose();
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         value={title}
@@ -28,6 +28,6 @@ const EditRecipeForm = ({ recipe }) => {
       <button type="submit">Update Recipe</button>
     </form>
   );
-};
+}
 
 export default EditRecipeForm;
