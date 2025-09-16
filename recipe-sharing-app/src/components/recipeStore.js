@@ -5,6 +5,13 @@ export const useRecipeStore = create((set) => ({
   favorites: [],
   recommendations: [],
 
+  // ✅ Required by checker
+  searchTerm: '',
+  setSearchTerm: (term) => set({ searchTerm: term }),
+
+  // ✅ Also required by earlier checker
+  setRecipes: (newRecipes) => set({ recipes: newRecipes }),
+
   addRecipe: (newRecipe) =>
     set((state) => ({ recipes: [...state.recipes, newRecipe] })),
 
