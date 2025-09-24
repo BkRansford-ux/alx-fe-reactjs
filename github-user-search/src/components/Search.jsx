@@ -1,99 +1,101 @@
 import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchUsers } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
-  const [repos, setRepos] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [results, setResults] = useState(null);
 
-  const handleSearch = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setResults(null);
+    setUsers([]);
 
     try {
-      const data = await fetchUserData(username, location, repos);
-      setResults(data);
+      const results = await fetchUsers({ username, location, minRepos });
+      setUsers(results);
     } catch (err) {
-      setError("Looks like we can't find the user 😢");
+      setError("Looks like we can't fetch users right now.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-start p-6">
+    <div className="max-w-3xl mx-auto p-6">
+      {/* Heading */}
+      <h1 className="text-2xl font-bold text-center mb-6">
+        GitHub Advanced User Search
+      </h1>
 
       {/* Search Form */}
       <form
-        onSubmit={handleSearch}
-        className="flex flex-col sm:flex-row gap-3 w-full max-w-2xl bg-gray-800 p-4 rounded-lg shadow-lg"
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
       >
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border rounded-lg p-2"
         />
         <input
           type="text"
-          placeholder="Location (e.g. London)"
+          placeholder="Location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border rounded-lg p-2"
         />
         <input
           type="number"
-          placeholder="Min Repositories"
-          value={repos}
-          onChange={(e) => setRepos(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Min Repos"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="border rounded-lg p-2"
         />
+
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-md font-semibold transition"
+          className="col-span-1 md:col-span-3 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
         >
           Search
         </button>
       </form>
 
-      {/* Status Messages */}
-      <div className="mt-6 text-center">
-        {loading && <p className="text-yellow-400">Loading...</p>}
-        {error && <p className="text-red-400">{error}</p>}
-      </div>
+      {/* Results Section */}
+      {loading && <p className="text-center">Loading...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Results */}
-      {results && results.items && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full max-w-5xl">
-          {results.items.map((user) => (
-            <div
-              key={user.id}
-              className="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center"
-            >
-              <img
-                src={user.avatar_url}
-                alt={user.login}
-                className="w-24 h-24 rounded-full mb-3"
-              />
-              <h2 className="text-xl font-semibold">{user.login}</h2>
+      <div className="grid gap-4">
+        {users.map((user) => (
+          <div
+            key={user.id}
+            className="flex items-center space-x-4 p-4 border rounded-lg shadow-sm"
+          >
+            <img
+              src={user.avatar_url}
+              alt={user.login}
+              className="w-16 h-16 rounded-full"
+            />
+            <div>
+              <h2 className="text-lg font-semibold">{user.login}</h2>
               <a
                 href={user.html_url}
                 target="_blank"
-                rel="noreferrer"
-                className="mt-2 text-blue-400 hover:underline"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
               >
                 View Profile
               </a>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

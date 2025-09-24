@@ -1,30 +1,24 @@
-// src/services/githubService.js
+import axios from "axios";
 
-const BASE_URL = "https://api.github.com/search/users";
+const BASE_URL = "https://api.github.com";
 
-/**
- * Fetch GitHub user data with optional filters
- * @param {string} username - GitHub username
- * @param {string} location - Location filter
- * @param {string|number} repos - Minimum repos filter
- */
-export async function fetchUserData(username, location, repos) {
-  let query = "";
+// Advanced search for users
+export const fetchUsers = async ({ username, location, minRepos }) => {
+  try {
+    // Build query string for search API
+    let query = "";
 
-  if (username) query += `${username} in:login`;
-  if (location) query += ` location:${location}`;
-  if (repos) query += ` repos:>=${repos}`;
+    if (username) query += `${username} `;
+    if (location) query += `location:${location} `;
+    if (minRepos) query += `repos:>=${minRepos}`;
 
-  // If no query provided, fallback to something to avoid errors
-  if (!query) query = "type:user";
+    const response = await axios.get(
+      `${BASE_URL}/search/users?q=${encodeURIComponent(query)}`
+    );
 
-  const url = `${BASE_URL}?q=${encodeURIComponent(query)}&per_page=12`;
-
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error("GitHub API request failed");
+    return response.data.items; // GitHub Search API returns results in .items
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
   }
-
-  return response.json();
-}
+};
