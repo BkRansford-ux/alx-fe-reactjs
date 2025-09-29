@@ -1,73 +1,93 @@
 import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchAdvancedUsers } from "../services/githubService";
 
 function Search() {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username.trim()) return;
-
     setLoading(true);
-    setError("");
-    setUser(null);
-
+    setError(null);
     try {
-      const data = await fetchUserData(username);
-      setUser(data);
+      const users = await fetchAdvancedUsers({ username, location, minRepos });
+      setResults(users);
     } catch (err) {
-      setError("Looks like we can‚Äôt find the user");
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      {/* Search Input */}
-      <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
+    <div className="max-w-xl mx-auto p-4">
+      <form onSubmit={handleSubmit} className="space-y-3 bg-gray-100 p-4 rounded">
         <input
           type="text"
+          placeholder="Search username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Search GitHub username..."
-          className="flex-1 border p-2 rounded"
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="text"
+          placeholder="Location (e.g., London)"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="number"
+          placeholder="Min repositories"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="w-full p-2 border rounded"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded"
         >
           Search
         </button>
       </form>
 
-      {/* Conditional Rendering */}
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      {user && (
-        <div className="border p-4 rounded shadow">
-          <img
-            src={user.avatar_url}
-            alt={user.login}
-            className="w-20 h-20 rounded-full mb-2"
-          />
-          <h2 className="text-xl font-bold">{user.name || user.login}</h2>
-          <a
-            href={user.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            View Profile
-          </a>
-        </div>
-      )}
+      <div className="mt-6">
+        {loading && <p>Loading...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+        {results.length > 0 && (
+          <ul className="space-y-4">
+            {results.map((user) => (
+              <li key={user.id} className="flex items-center space-x-4 p-3 border rounded">
+                <img
+                  src={user.avatar_url}
+                  alt={user.login}
+                  className="w-12 h-12 rounded-full"
+                />
+                <div>
+                  <p className="font-semibold">{user.login}</p>
+                  {user.name && <p>{user.name}</p>}
+                  {user.location && <p className="text-gray-600">Ì≥ç {user.location}</p>}
+                  <p className="text-gray-600">Ì≥¶ {user.public_repos} repos</p>
+                  <a
+                    href={user.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    View Profile
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
 
 export default Search;
-
