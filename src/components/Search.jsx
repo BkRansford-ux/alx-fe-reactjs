@@ -7,8 +7,10 @@ function Search() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSearch = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!username.trim()) return;
+
     setLoading(true);
     setError("");
     setUser(null);
@@ -24,24 +26,41 @@ function Search() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className="p-4 max-w-md mx-auto">
+      {/* Search Input */}
+      <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
         <input
           type="text"
-          placeholder="Enter GitHub username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          placeholder="Search GitHub username..."
+          className="flex-1 border p-2 rounded"
         />
-        <button type="submit">Search</button>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Search
+        </button>
       </form>
 
+      {/* Conditional Rendering */}
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
       {user && (
-        <div>
-          <img src={user.avatar_url} alt={user.login} width="100" />
-          <h2>{user.name || user.login}</h2>
-          <a href={user.html_url} target="_blank" rel="noreferrer">
+        <div className="border p-4 rounded shadow">
+          <img
+            src={user.avatar_url}
+            alt={user.login}
+            className="w-20 h-20 rounded-full mb-2"
+          />
+          <h2 className="text-xl font-bold">{user.name || user.login}</h2>
+          <a
+            href={user.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline"
+          >
             View Profile
           </a>
         </div>
@@ -51,3 +70,4 @@ function Search() {
 }
 
 export default Search;
+
