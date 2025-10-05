@@ -1,43 +1,141 @@
 [
   {
     "id": 1,
-    "title": "Spaghetti Carbonara",
-    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/400x250",
+    "title": "Rabbit Salad with Mashed Potatoes",
+    "summary": "Tender rabbit pieces served with buttery mashed potatoes infused with cream cheese and cheddar.",
+    "image": "https://images.unsplash.com/photo-1605475128023-2c00b91b45c2?auto=format&fit=crop&w=800&q=80",
     "ingredients": [
-      "200g spaghetti",
-      "100g pancetta or bacon",
-      "2 large eggs",
-      "50g Parmesan cheese",
-      "Salt & black pepper"
+      "500g rabbit meat (cooked and shredded)",
+      "3 potatoes, boiled",
+      "2 tbsp butter",
+      "2 tbsp cream cheese",
+      "1/2 cup shredded cheddar cheese",
+      "Mixed greens (lettuce, arugula, spinach)",
+      "Salt & black pepper to taste"
     ],
     "instructions": [
-      "Cook spaghetti until al dente.",
-      "Fry pancetta until crispy.",
-      "Mix eggs and cheese together in a bowl.",
-      "Combine everything with drained pasta off the heat.",
-      "Season and serve."
+      "Boil the potatoes until soft, then mash with butter, cream cheese, and cheddar.",
+      "Season the rabbit meat with salt and pepper.",
+      "Arrange mashed potatoes on a plate, top with greens and rabbit pieces.",
+      "Garnish with a drizzle of olive oil and serve warm."
     ]
   },
   {
     "id": 2,
-    "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken cooked in a creamy tomato-based sauce.",
-    "image": "https://via.placeholder.com/400x250",
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "https://images.unsplash.com/photo-1603133872878-684f06a6a49a?auto=format&fit=crop&w=800&q=80",
     "ingredients": [
-      "500g chicken breast",
-      "1 cup yogurt",
-      "2 tbsp tikka masala paste",
-      "1 onion",
-      "1 cup tomato puree",
-      "Cream, salt, and spices"
+      "200g spaghetti",
+      "100g pancetta",
+      "2 large eggs",
+      "50g Parmesan cheese",
+      "Black pepper to taste"
     ],
     "instructions": [
-      "Marinate chicken in yogurt and tikka masala paste for 2 hours.",
-      "Grill the chicken until cooked through.",
-      "Sauté onion and spices in a pan.",
-      "Add tomato puree and simmer.",
-      "Stir in cream and grilled chicken pieces, then serve hot."
+      "Cook pasta in salted water.",
+      "Fry pancetta until crispy.",
+      "Whisk eggs and cheese together.",
+      "Toss pasta with pancetta and egg mixture off the heat.",
+      "Serve immediately with black pepper."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Chicken Tikka Masala",
+    "summary": "Grilled chicken chunks cooked in a creamy, spiced tomato-based sauce.",
+    "image": "https://images.unsplash.com/photo-1626086682772-d6a792ce0e2b?auto=format&fit=crop&w=800&q=80",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "1 cup yogurt",
+      "2 tbsp tikka masala paste",
+      "1 onion, chopped",
+      "1 cup tomato puree",
+      "1/2 cup cream"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and tikka masala paste.",
+      "Grill until golden and set aside.",
+      "Fry onion, add tomato puree, and simmer.",
+      "Add cream and grilled chicken, simmer for 10 minutes.",
+      "Serve with rice or naan."
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Beef Stroganoff",
+    "summary": "Tender strips of beef and mushrooms in a creamy sauce served over noodles.",
+    "image": "https://images.unsplash.com/photo-1617196036323-6de1b55eaba1?auto=format&fit=crop&w=800&q=80",
+    "ingredients": [
+      "400g beef strips",
+      "1 onion, sliced",
+      "1 cup mushrooms, sliced",
+      "1/2 cup sour cream",
+      "1 tbsp mustard"
+    ],
+    "instructions": [
+      "Cook beef until browned, set aside.",
+      "Fry onions and mushrooms until soft.",
+      "Add sour cream and mustard, stir well.",
+      "Return beef and simmer for 5 minutes.",
+      "Serve over egg noodles or rice."
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Vegetable Stir Fry",
+    "summary": "A colorful mix of vegetables sautéed with soy sauce and garlic.",
+    "image": "https://images.unsplash.com/photo-1617196036714-57b7b63ff9ce?auto=format&fit=crop&w=800&q=80",
+    "ingredients": [
+      "1 bell pepper, sliced",
+      "1 carrot, sliced",
+      "1 zucchini, sliced",
+      "2 tbsp soy sauce",
+      "1 tbsp olive oil",
+      "2 cloves garlic, minced"
+    ],
+    "instructions": [
+      "Heat oil in a wok and add garlic.",
+      "Add all vegetables and stir-fry for 5–7 minutes.",
+      "Add soy sauce and toss to coat.",
+      "Serve hot with steamed rice."
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Avocado Toast Deluxe",
+    "summary": "Toasted bread topped with smashed avocado, eggs, and chili flakes.",
+    "image": "https://images.unsplash.com/photo-1586201375754-1421a4e8d2a0?auto=format&fit=crop&w=800&q=80",
+    "ingredients": [
+      "2 slices sourdough bread",
+      "1 ripe avocado",
+      "2 eggs",
+      "Salt & chili flakes"
+    ],
+    "instructions": [
+      "Toast the bread slices.",
+      "Mash avocado with salt and spread on toast.",
+      "Top with poached or fried eggs.",
+      "Sprinkle chili flakes and serve immediately."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Classic Pancakes",
+    "summary": "Fluffy homemade pancakes served with butter and maple syrup.",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+    "ingredients": [
+      "1 cup flour",
+      "2 tbsp sugar",
+      "1 egg",
+      "3/4 cup milk",
+      "1 tbsp butter"
+    ],
+    "instructions": [
+      "Mix dry ingredients together.",
+      "Add egg and milk, whisk until smooth.",
+      "Cook small scoops on a greased pan until golden.",
+      "Serve with butter and maple syrup."
     ]
   }
 ]
