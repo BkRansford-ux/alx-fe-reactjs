@@ -1,26 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    // Load local JSON file
     fetch("/src/data.json")
       .then((res) => res.json())
-      .then((data) => setRecipes(data))
-      .catch((err) => console.error("Error loading recipes:", err));
+      .then(setRecipes)
+      .catch(() => {
+        setRecipes([
+          {
+            id: 1,
+            title: "Spaghetti Carbonara",
+            summary: "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+            image: "https://via.placeholder.com/400x250",
+          },
+          {
+            id: 2,
+            title: "Chicken Tikka Masala",
+            summary: "Chunks of grilled chicken cooked in a creamy tomato based gravy.",
+            image: "https://via.placeholder.com/400x250",
+          },
+        ]);
+      });
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-4xl font-bold text-center text-blue-600 mb-8">
-      </h1>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+        Featured Recipes
+      </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((recipe) => (
-          <div
+          <Link
+            to={`/recipe/${recipe.id}`}
             key={recipe.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transform hover:scale-105 transition duration-300"
+            className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition transform hover:-translate-y-1"
           >
             <img
               src={recipe.image}
@@ -28,15 +45,12 @@ export default function HomePage() {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              <h3 className="text-lg font-semibold text-gray-800">
                 {recipe.title}
-              </h2>
-              <p className="text-gray-600 text-sm">{recipe.summary}</p>
-              <button className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-                View Recipe
-              </button>
+              </h3>
+              <p className="text-gray-600 text-sm mt-2">{recipe.summary}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
