@@ -1,70 +1,76 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    if (!formData.username) newErrors.username = "Username is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.password) newErrors.password = "Password is required";
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
 
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log("User Registered:", formData);
-      alert("Registration successful!");
-      setFormData({ username: "", email: "", password: "" });
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
     }
+
+    alert(`User Registered: ${username} (${email})`);
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
-      <h2>User Registration (Controlled Components)</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter username"
-          />
-          {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-2xl shadow-md w-80"
+      >
+        <h2 className="text-2xl font-semibold text-center mb-4">
+          User Registration (Controlled)
+        </h2>
 
-        <div>
-          <label>Email:</label>
-          <input
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter email"
-          />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-        </div>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="border p-2 mb-3 w-full rounded"
+        />
+        {errors.username && (
+          <p className="text-red-500 text-sm mb-2">{errors.username}</p>
+        )}
 
-        <div>
-          <label>Password:</label>
-          <input
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter password"
-          />
-          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border p-2 mb-3 w-full rounded"
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm mb-2">{errors.email}</p>
+        )}
 
-        <button type="submit">Register</button>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="border p-2 mb-3 w-full rounded"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm mb-2">{errors.password}</p>
+        )}
+
+        <button
+          type="submit"
+          className="bg-blue-600 text-white py-2 px-4 w-full rounded hover:bg-blue-700"
+        >
+          Register
+        </button>
       </form>
     </div>
   );
