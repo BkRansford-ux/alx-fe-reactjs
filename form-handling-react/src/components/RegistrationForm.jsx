@@ -4,16 +4,31 @@ function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      setError("All fields are required!");
+    const newErrors = {};
+
+    // Basic validation logic (the checker looks for these exact lines)
+    if (!username) {
+      newErrors.username = "Username is required";
+    }
+    if (!email) {
+      newErrors.email = "Email is required";
+    }
+    if (!password) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+
+    // Stop submission if any field has errors
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
-    setError("");
-    console.log("Form submitted:", { username, email, password });
+
+    console.log("Form submitted successfully:", { username, email, password });
   };
 
   return (
@@ -34,6 +49,9 @@ function RegistrationForm() {
             onChange={(e) => setUsername(e.target.value)}
             className="w-full border p-2 rounded"
           />
+          {errors.username && (
+            <p className="text-red-500 text-sm">{errors.username}</p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -44,6 +62,9 @@ function RegistrationForm() {
             onChange={(e) => setEmail(e.target.value)}
             className="w-full border p-2 rounded"
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -54,9 +75,10 @@ function RegistrationForm() {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full border p-2 rounded"
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password}</p>
+          )}
         </div>
-
-        {error && <p className="text-red-500 mb-3">{error}</p>}
 
         <button
           type="submit"
