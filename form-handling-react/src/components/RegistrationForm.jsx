@@ -1,94 +1,73 @@
 import { useState } from "react";
 
-function RegistrationForm() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const RegistrationForm = () => {
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    // Basic validation logic (the checker looks for these exact lines)
-    if (!username) {
-      newErrors.username = "Username is required";
-    }
-    if (!email) {
-      newErrors.email = "Email is required";
-    }
-    if (!password) {
-      newErrors.password = "Password is required";
-    }
+    if (!formData.username) newErrors.username = "Username is required";
+    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.password) newErrors.password = "Password is required";
 
     setErrors(newErrors);
 
-    // Stop submission if any field has errors
-    if (Object.keys(newErrors).length > 0) {
-      return;
+    if (Object.keys(newErrors).length === 0) {
+      console.log("User Registered:", formData);
+      alert("Registration successful!");
+      setFormData({ username: "", email: "", password: "" });
     }
-
-    console.log("Form submitted successfully:", { username, email, password });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
-      >
-        <h2 className="text-2xl font-semibold text-center mb-4">
-          User Registration (Controlled)
-        </h2>
-
-        <div className="mb-4">
-          <label className="block mb-1">Username</label>
+    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
+      <h2>User Registration (Controlled Components)</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Username:</label>
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full border p-2 rounded"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Enter username"
           />
-          {errors.username && (
-            <p className="text-red-500 text-sm">{errors.username}</p>
-          )}
+          {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1">Email</label>
+        <div>
+          <label>Email:</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border p-2 rounded"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter email"
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
-          )}
+          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1">Password</label>
+        <div>
+          <label>Password:</label>
           <input
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border p-2 rounded"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter password"
           />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password}</p>
-          )}
+          {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
-}
+};
 
 export default RegistrationForm;
