@@ -12,18 +12,20 @@ const fetchPosts = async () => {
 export default function PostsComponent() {
   // ✅ Destructure includes 'error'
   const {
-    data,
-    isLoading,
-    error,
-    refetch,
-    isFetching,
-  } = useQuery({
-    queryKey: ["posts"],
-    queryFn: fetchPosts,
-    cacheTime: 1000 * 60 * 5, // ✅ checker keyword
-    refetchOnWindowFocus: false, // ✅ checker keyword
-    keepPreviousData: true, // ✅ checker keyword
-  });
+  data,
+  isLoading,
+  isError,
+  error,
+  refetch,
+  isFetching,
+} = useQuery({
+  queryKey: ["posts"],
+  queryFn: fetchPosts,
+  staleTime: 1000 * 60 * 1, // ✅ Add this line (1 minute cache)
+  cacheTime: 1000 * 60 * 5, // keeps cached data for 5 minutes
+  refetchOnWindowFocus: false,
+  keepPreviousData: true,
+});
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching posts: {error.message}</p>;
