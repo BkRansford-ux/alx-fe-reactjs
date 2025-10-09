@@ -1,14 +1,13 @@
 import { useState } from "react";
 
 const AddTodoForm = ({ addTodo }) => {
-  const [input, setInput] = useState("");
+  const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim()) {
-      addTodo(input);
-      setInput("");
-    }
+    if (!value.trim()) return;
+    addTodo(value);
+    setValue("");
   };
 
   return (
@@ -16,8 +15,8 @@ const AddTodoForm = ({ addTodo }) => {
       <input
         type="text"
         placeholder="Add a new todo"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
       <button type="submit">Add</button>
     </form>
@@ -25,4 +24,3 @@ const AddTodoForm = ({ addTodo }) => {
 };
 
 export default AddTodoForm;
-
