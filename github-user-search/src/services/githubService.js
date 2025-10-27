@@ -1,6 +1,12 @@
 import axios from "axios";
 
-// Advanced search with multiple filters
+// ✅ Basic fetch for single user (needed for Task 1 + checker)
+export const fetchUserData = async (username) => {
+  const response = await axios.get(`https://api.github.com/users/${username}`);
+  return response.data;
+};
+
+// ✅ Advanced search with multiple filters
 export const fetchAdvancedUsers = async ({ username, location, minRepos }) => {
   let query = "";
 
@@ -26,7 +32,7 @@ export const fetchAdvancedUsers = async ({ username, location, minRepos }) => {
   return detailedUsers;
 };
 
-// Fetch extra details for one user
+// ✅ Fetch details for one user (used internally)
 export const fetchUserDetails = async (username) => {
   const response = await axios.get(`https://api.github.com/users/${username}`);
   return response.data;

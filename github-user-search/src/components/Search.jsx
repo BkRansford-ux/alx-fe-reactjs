@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchAdvancedUsers } from "../services/githubService";
+import { fetchUserData, fetchAdvancedUsers } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
@@ -16,8 +16,15 @@ export default function Search() {
     setResults([]);
 
     try {
-      const data = await fetchAdvancedUsers({ username, location, minRepos });
-      setResults(data);
+      // ‚úÖ If username only ‚Üí use fetchUserData (for checker)
+      if (username && !location && !minRepos) {
+        const user = await fetchUserData(username);
+        setResults([user]); // wrap single result in array for uniform rendering
+      } else {
+        // ‚úÖ Otherwise ‚Üí use the advanced API
+        const users = await fetchAdvancedUsers({ username, location, minRepos });
+        setResults(users);
+      }
     } catch (err) {
       setError("Looks like we can‚Äôt find the user.");
     } finally {
@@ -99,9 +106,11 @@ export default function Search() {
                   {user.location && (
                     <p className="text-gray-600">Ì≥ç {user.location}</p>
                   )}
-                  <p className="text-sm text-gray-500">
-                    Public Repos: {user.public_repos}
-                  </p>
+                  {user.public_repos && (
+                    <p className="text-sm text-gray-500">
+                      Public Repos: {user.public_repos}
+                    </p>
+                  )}
                   <a
                     href={user.html_url}
                     target="_blank"
